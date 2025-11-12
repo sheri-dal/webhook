@@ -11,9 +11,6 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 const verifyToken = process.env.VERIFY_TOKEN;
 
-const TOKEN = 'EAATw0Vw0dHkBP4PwfQZCsheGiDknkbSXFcbSrTkA78iNd63rOPPws3TkJVo7sYfFYvhWzhRmQZB2ZCutsVuBhRCZCJ0ZAKcKYoadoKO6DNXqg4fG0e9MvM6n7yF3VkhsTXwNstbDKXwGNyBzAA7mYYyV2ADzf3AFzQMQeTVdyZBF8mZCScLaIBG0KvcEyYZAfTobZCAZDZD';
-const PHONE_ID = '946106288587555';
-
 // Route for GET requests
 app.get('/', (req, res) => {
   const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query;
@@ -27,65 +24,12 @@ app.get('/', (req, res) => {
 });
 
 // Route for POST requests
-app.post('/webhook', async (req, res) => {
-  console.log("webhook Log")
-  console.log(req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0]);
-  res.sendStatus(200);
-  const message = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-  if (!message) return;
-
-  const from = message.from;
-  const text = message.text?.body?.toLowerCase();
-
-  if (text === 'hi' || text === 'hello') {
-    sendMenu(from);
-  } else if (text === '1') {
-    sendText(from, 'Aapne Sales choose kiya ✅');
-  } else if (text === '2') {
-    sendText(from, 'Aapne Support choose kiya ✅');
-  } else {
-    sendText(from, 'Kripya sahi option choose karein: 1) Sales 2) Support');
-  }
+app.post('/', (req, res) => {
+  const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
+  console.log(`\n\nWebhook received ${timestamp}\n`);
+  console.log(JSON.stringify(req.body, null, 2));
+  res.status(200).end();
 });
-
-async function sendMenu(to) {
-  const url = `https://graph.facebook.com/v24.0/${PHONE_ID}/messages`;
-  const body = {
-    messaging_product: 'whatsapp',
-    to,
-    type: 'interactive',
-    interactive: {
-      type: 'button',
-      body: { text: 'Welcome to Splendid Accounts! Choose option:' },
-      action: {
-        buttons: [
-          { type: 'reply', reply: { id: '1', title: '1. Sales' } },
-          { type: 'reply', reply: { id: '2', title: '2. Support' } }
-        ]
-      }
-    }
-  };
-  await fetch(url, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-}
-
-async function sendText(to, msg) {
-  const url = `https://graph.facebook.com/v24.0/${PHONE_ID}/messages`;
-  const body = {
-    messaging_product: 'whatsapp',
-    to,
-    type: 'text',
-    text: { body: msg }
-  };
-  await fetch(url, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  });
-}
 
 // Start the server
 app.listen(port, () => {
