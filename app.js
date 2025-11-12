@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 const verifyToken = process.env.VERIFY_TOKEN;
 
 const TOKEN = 'EAATw0Vw0dHkBP4PwfQZCsheGiDknkbSXFcbSrTkA78iNd63rOPPws3TkJVo7sYfFYvhWzhRmQZB2ZCutsVuBhRCZCJ0ZAKcKYoadoKO6DNXqg4fG0e9MvM6n7yF3VkhsTXwNstbDKXwGNyBzAA7mYYyV2ADzf3AFzQMQeTVdyZBF8mZCScLaIBG0KvcEyYZAfTobZCAZDZD';
-const PHONE_ID = '717161620855022';
+const PHONE_ID = '946106288587555';
 
 // Route for GET requests
 app.get('/', (req, res) => {
