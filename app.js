@@ -28,6 +28,8 @@ app.get('/', (req, res) => {
 
 // Route for POST requests
 app.post('/webhook', async (req, res) => {
+  console.log("webhook Log")
+  console.log(req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0]);
   res.sendStatus(200);
   const message = req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
   if (!message) return;
