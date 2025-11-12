@@ -11,8 +11,8 @@ app.use(express.json());
 const port = process.env.PORT || 3000;
 const verifyToken = process.env.VERIFY_TOKEN;
 
-const TOKEN = 'YOUR_PERMANENT_TOKEN';
-const PHONE_ID = 'YOUR_PHONE_NUMBER_ID';
+const TOKEN = 'EAATw0Vw0dHkBP4PwfQZCsheGiDknkbSXFcbSrTkA78iNd63rOPPws3TkJVo7sYfFYvhWzhRmQZB2ZCutsVuBhRCZCJ0ZAKcKYoadoKO6DNXqg4fG0e9MvM6n7yF3VkhsTXwNstbDKXwGNyBzAA7mYYyV2ADzf3AFzQMQeTVdyZBF8mZCScLaIBG0KvcEyYZAfTobZCAZDZD';
+const PHONE_ID = '717161620855022';
 
 // Route for GET requests
 app.get('/', (req, res) => {
